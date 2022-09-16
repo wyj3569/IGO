@@ -241,7 +241,12 @@ class FromPatientToDoctorAPIView(APIView):
     def post(self, request, patient_id):  # 일단 patient_id는 1로 고정
         station = request.data["station"]
         distance = float(request.data["real_distance"])
+
+        print("start")
+        print("before")
         print(station, distance, sep="/")
+        print(FromPatientToDoctorAPIView.check_if_post)
+        print(FromPatientToDoctorAPIView.real_distances)
 
         if station == "A":
             FromPatientToDoctorAPIView.check_if_post[0] = True
@@ -258,8 +263,10 @@ class FromPatientToDoctorAPIView(APIView):
         else:
             return Response("invalid station name", status=status.HTTP_400_BAD_REQUEST)
 
+        print("after")
         print(FromPatientToDoctorAPIView.check_if_post)
         print(FromPatientToDoctorAPIView.real_distances)
+        print("end")
 
         if FromPatientToDoctorAPIView.check_if_post[0] and \
                 FromPatientToDoctorAPIView.check_if_post[1] and \
