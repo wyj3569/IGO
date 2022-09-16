@@ -1,1 +1,1 @@
-web:gunicorn IGO.wsgi
+web: gunicorn IGO.wsgi
