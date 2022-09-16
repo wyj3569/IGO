@@ -234,10 +234,12 @@ class FromStation4APIView(APIView):
 # 환자가 의료진 호출 (라즈베리파이 -> 서버)
 # call/patient/<int:patient_id>/
 class FromPatientToDoctorAPIView(APIView):
-
+    print("들어감")
     check_if_post = [False, False, False, False]
     real_distances = [0.0, 0.0, 0.0, 0.0]
+    print("hello")
 
+    @staticmethod
     def post(self, request, patient_id):  # 일단 patient_id는 1로 고정
         station = request.data["station"]
         distance = float(request.data["real_distance"])
