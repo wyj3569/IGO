@@ -239,7 +239,6 @@ class FromPatientToDoctorAPIView(APIView):
     real_distances = [0.0, 0.0, 0.0, 0.0]
     print("hello")
 
-    @staticmethod
     def post(self, request, patient_id):  # 일단 patient_id는 1로 고정
         station = request.data["station"]
         distance = float(request.data["real_distance"])
