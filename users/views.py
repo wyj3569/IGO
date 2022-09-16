@@ -296,6 +296,9 @@ class FromPatientToDoctorAPIView(APIView):
 
             check_if_post = [False, False, False, False]
             real_distances = [0.0, 0.0, 0.0, 0.0]
+        else:
+            print("아직 모든 기지국이 값을 보내지 않음")
+            return Response(request.data, status=status.HTTP_200_OK)
 
         return Response(request.data, status=status.HTTP_200_OK)
 
