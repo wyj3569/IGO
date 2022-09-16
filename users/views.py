@@ -234,10 +234,14 @@ class FromStation4APIView(APIView):
 # 환자가 의료진 호출 (라즈베리파이 -> 서버)
 # call/patient/<int:patient_id>/
 class FromPatientToDoctorAPIView(APIView):
+
     print("들어감")
-    check_if_post = [False, False, False, False]
-    real_distances = [0.0, 0.0, 0.0, 0.0]
-    print("hello")
+    def __init__(self):
+        print("생성자 실행")
+        self.check_if_post = [False, False, False, False]
+        self.real_distances = [0.0, 0.0, 0.0, 0.0]
+        print("생성자 종료")
+    print("나옴")
 
     def post(self, request, patient_id):  # 일단 patient_id는 1로 고정
         station = request.data["station"]
@@ -246,36 +250,36 @@ class FromPatientToDoctorAPIView(APIView):
         print("start")
         print("before")
         print(station, distance, sep="/")
-        print(FromPatientToDoctorAPIView.check_if_post)
-        print(FromPatientToDoctorAPIView.real_distances)
+        print(self.check_if_post)
+        print(self.real_distances)
 
         if station == "A":
-            FromPatientToDoctorAPIView.check_if_post[0] = True
-            FromPatientToDoctorAPIView.real_distances[0] = distance
+            self.check_if_post[0] = True
+            self.real_distances[0] = distance
         elif station == "B":
-            FromPatientToDoctorAPIView.check_if_post[1] = True
-            FromPatientToDoctorAPIView.real_distances[1] = distance
+            self.check_if_post[1] = True
+            self.real_distances[1] = distance
         elif station == "C":
-            FromPatientToDoctorAPIView.check_if_post[2] = True
-            FromPatientToDoctorAPIView.real_distances[2] = distance
+            self.check_if_post[2] = True
+            self.real_distances[2] = distance
         elif station == "D":
-            FromPatientToDoctorAPIView.check_if_post[3] = True
-            FromPatientToDoctorAPIView.real_distances[3] = distance
+            self.check_if_post[3] = True
+            self.real_distances[3] = distance
         else:
             return Response("invalid station name", status=status.HTTP_400_BAD_REQUEST)
 
         print("after")
-        print(FromPatientToDoctorAPIView.check_if_post)
-        print(FromPatientToDoctorAPIView.real_distances)
+        print(self.check_if_post)
+        print(self.real_distances)
         print("end")
 
-        if FromPatientToDoctorAPIView.check_if_post[0] and \
-                FromPatientToDoctorAPIView.check_if_post[1] and \
-                FromPatientToDoctorAPIView.check_if_post[2] and \
-                FromPatientToDoctorAPIView.check_if_post[3]:
+        if self.check_if_post[0] and \
+                self.check_if_post[1] and \
+                self.check_if_post[2] and \
+                self.check_if_post[3]:
             print("모든 기지국이 거리값을 보냄")
-            print(FromPatientToDoctorAPIView.check_if_post)
-            print(FromPatientToDoctorAPIView.real_distances)
+            print(self.check_if_post)
+            print(self.real_distances)
 
             # 환자 조회
             patient = get_object_or_404(Patient, pk=patient_id)
@@ -292,10 +296,10 @@ class FromPatientToDoctorAPIView(APIView):
             drawing_patient_x, drawing_patient_y = get_drawing_patient_position(
                 hospital=hospital,
                 real_distance=(
-                    FromPatientToDoctorAPIView.real_distances[0],
-                    FromPatientToDoctorAPIView.real_distances[1],
-                    FromPatientToDoctorAPIView.real_distances[2],
-                    FromPatientToDoctorAPIView.real_distances[3])
+                    self.real_distances[0],
+                    self.real_distances[1],
+                    self.real_distances[2],
+                    self.real_distances[3])
             )
             print("FCM에 넣을 값")
             print("drawing_patient_x: ", drawing_patient_x)
@@ -308,8 +312,8 @@ class FromPatientToDoctorAPIView(APIView):
             #     doctor_info=profile
             # )
 
-            FromPatientToDoctorAPIView.check_if_post = [False, False, False, False]
-            FromPatientToDoctorAPIView.real_distances = [0.0, 0.0, 0.0, 0.0]
+            self.check_if_post = [False, False, False, False]
+            self.real_distances = [0.0, 0.0, 0.0, 0.0]
         else:
             print("아직 모든 기지국이 값을 보내지 않음")
             return Response(request.data, status=status.HTTP_200_OK)
