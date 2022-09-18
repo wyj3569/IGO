@@ -293,12 +293,12 @@ class FromPatientToDoctorAPIView(APIView):
                 patient_info=patient,
                 doctor_info=profile
             )
-            send_from_patient_to_doctor_by_fcm_data(
-                drawing_patient_x=drawing_patient_x,
-                drawing_patient_y=drawing_patient_y,
-                patient_info=patient,
-                doctor_info=profile
-            )
+            # send_from_patient_to_doctor_by_fcm_data(
+            #     drawing_patient_x=drawing_patient_x,
+            #     drawing_patient_y=drawing_patient_y,
+            #     patient_info=patient,
+            #     doctor_info=profile
+            # )
 
             # 환자의 실제 거리값 0으로 초기화
             patient.real_distance1 = 0
