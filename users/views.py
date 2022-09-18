@@ -285,6 +285,7 @@ class FromPatientToDoctorAPIView(APIView):
             print("FCM에 보낼 값")
             print(f"drawing_patient_x: {drawing_patient_x}")
             print(f"drawing_patient_y: {drawing_patient_y}")
+
             # FCM에 push 메시지 요청 보내기
             send_from_patient_to_doctor_by_fcm(
                 drawing_patient_x=drawing_patient_x,
