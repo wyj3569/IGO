@@ -68,25 +68,42 @@ def polypoint(real_distance: tuple,
     return real_patient_x, real_patient_y
 
 
-# FCM 서버에 push message 요청을 보내는 함수
-def send_from_patient_to_doctor_by_fcm(drawing_patient_x,
-                                       drawing_patient_y,
-                                       patient_info: Patient,
-                                       doctor_info: Profile):
+# # FCM 서버에 push message 요청을 보내는 함수
+# def send_from_patient_to_doctor_by_fcm(drawing_patient_x,
+#                                        drawing_patient_y,
+#                                        patient_info: Patient,
+#                                        doctor_info: Profile):
+#
+#     registration_token = 'd4e1AepQQBOZ6Vt17XLYBI:APA91bEv8cKSjS-2uBBqPco17SK1jg5R_3RnAAmCukEDljBWpiXK231kwwk3_9upUKUtQZJOUwtIRRtu504F-glNe20Fe11Q2mW-_TfoLhv4vvcFMwlHiJgRaDuIANnDsADnjmpgUOFU'
+#
+#     message = messaging.Message(
+#         notification=messaging.Notification(
+#             title='환자의 호출',
+#             body=f'{doctor_info.name} 선생님, {patient_info.name} 환자가 호출했습니다!!'
+#         ),
+#         data={
+#             'drawing_patient_x': drawing_patient_x,
+#             'drawing_patient_y': drawing_patient_y
+#         },
+#         token=registration_token,
+#     )
+#
+#     response = messaging.send(message)
+#     print('Successfully sent message:', response)
 
+def send_to_firebase_cloud_messaging():
+    # This registration token comes from the client FCM SDKs.
     registration_token = 'd4e1AepQQBOZ6Vt17XLYBI:APA91bEv8cKSjS-2uBBqPco17SK1jg5R_3RnAAmCukEDljBWpiXK231kwwk3_9upUKUtQZJOUwtIRRtu504F-glNe20Fe11Q2mW-_TfoLhv4vvcFMwlHiJgRaDuIANnDsADnjmpgUOFU'
 
+    # See documentation on defining a message payload.
     message = messaging.Message(
-        notification=messaging.Notification(
-            title='환자의 호출',
-            body=f'{doctor_info.name} 선생님, {patient_info.name} 환자가 호출했습니다!!'
-        ),
-        data={
-            'drawing_patient_x': drawing_patient_x,
-            'drawing_patient_y': drawing_patient_y
-        },
-        token=registration_token,
+    notification=messaging.Notification(
+        title='안녕하세요 타이틀 입니다',
+        body='안녕하세요 메세지 입니다',
+    ),
+    token=registration_token,
     )
 
     response = messaging.send(message)
+    # Response is a message ID string.
     print('Successfully sent message:', response)

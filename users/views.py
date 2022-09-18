@@ -12,7 +12,7 @@ from .serializers import RegisterSerializer, LoginSerializer
 from .serializers import ProfileREADSerializer, ProfileUPDATESerializer
 from .serializers import PatientCREATESerializer, PatientREADSerializer, PatientUPDATESerializer
 
-from .utils import get_drawing_patient_position, send_from_patient_to_doctor_by_fcm
+from .utils import get_drawing_patient_position, send_to_firebase_cloud_messaging
 
 
 # 병원 전체 조회
@@ -286,13 +286,14 @@ class FromPatientToDoctorAPIView(APIView):
             print(f"drawing_patient_x: {drawing_patient_x}")
             print(f"drawing_patient_y: {drawing_patient_y}")
 
-            # FCM에 push 메시지 요청 보내기
-            send_from_patient_to_doctor_by_fcm(
-                drawing_patient_x=drawing_patient_x,
-                drawing_patient_y=drawing_patient_y,
-                patient_info=patient,
-                doctor_info=profile
-            )
+            # # FCM에 push 메시지 요청 보내기
+            # send_from_patient_to_doctor_by_fcm(
+            #     drawing_patient_x=drawing_patient_x,
+            #     drawing_patient_y=drawing_patient_y,
+            #     patient_info=patient,
+            #     doctor_info=profile
+            # )
+            send_to_firebase_cloud_messaging()
 
             # 환자의 실제 거리값 0으로 초기화
             patient.real_distance1 = 0
