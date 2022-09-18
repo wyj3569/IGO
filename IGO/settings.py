@@ -10,10 +10,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import firebase_admin
+from firebase_admin import credentials
 import os
 import dj_database_url  # 1
 import environ  # 2
 from pathlib import Path
+
+
 
 env = environ.Env()
 environ.Env.read_env()
@@ -31,6 +35,10 @@ SECRET_KEY = os.environ['secret_key']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+
+cred_path = os.path.join(BASE_DIR, "serviceAccountKey.json")
+cred = credentials.Certificate(cred_path)
+firebase_admin.initialize_app(cred)
 
 ALLOWED_HOSTS = [".herokuapp.com", "127.0.0.1"]
 
