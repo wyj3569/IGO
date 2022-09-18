@@ -12,7 +12,7 @@ from .serializers import RegisterSerializer, LoginSerializer
 from .serializers import ProfileREADSerializer, ProfileUPDATESerializer
 from .serializers import PatientCREATESerializer, PatientREADSerializer, PatientUPDATESerializer
 
-from .utils import get_drawing_patient_position, send_from_patient_to_doctor_by_fcm_notification, send_from_patient_to_doctor_by_fcm_data
+from .utils import get_drawing_patient_position, send_from_patient_to_doctor_by_fcm_notification
 
 
 # 병원 전체 조회

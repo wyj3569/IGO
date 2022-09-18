@@ -81,7 +81,7 @@ def send_from_patient_to_doctor_by_fcm_notification(drawing_patient_x,
         notification=messaging.Notification(
             title='환자의 호출',
             body=f'{doctor_info.name} 선생님, {patient_info.name} 환자가 호출했습니다!!',
-            image={'drawing_patient_x': drawing_patient_x, 'drawing_patient_y': drawing_patient_y}
+            image=f'drawing_patient_x:{drawing_patient_x}, drawing_patient_y:{drawing_patient_y}'
         ),
         token=registration_token,
     )
@@ -89,22 +89,22 @@ def send_from_patient_to_doctor_by_fcm_notification(drawing_patient_x,
     print('Successfully sent notification message:', response)
 
 
-def send_from_patient_to_doctor_by_fcm_data(drawing_patient_x,
-                                       drawing_patient_y,
-                                       patient_info: Patient,
-                                       doctor_info: Profile):
-    registration_token = 'd4e1AepQQBOZ6Vt17XLYBI:APA91bEv8cKSjS-2uBBqPco17SK1jg5R_3RnAAmCukEDljBWpiXK231kwwk3_9upUKUtQZJOUwtIRRtu504F-glNe20Fe11Q2mW-_TfoLhv4vvcFMwlHiJgRaDuIANnDsADnjmpgUOFU'
-
-    # data message sending
-    message_data = messaging.Message(
-        data={
-            'drawing_patient_x': drawing_patient_x,
-            'drawing_patient_y': drawing_patient_y
-        },
-        token=registration_token,
-    )
-    response = messaging.send(message_data)
-    print('Successfully sent data message:', response)
+# def send_from_patient_to_doctor_by_fcm_data(drawing_patient_x,
+#                                        drawing_patient_y,
+#                                        patient_info: Patient,
+#                                        doctor_info: Profile):
+#     registration_token = 'd4e1AepQQBOZ6Vt17XLYBI:APA91bEv8cKSjS-2uBBqPco17SK1jg5R_3RnAAmCukEDljBWpiXK231kwwk3_9upUKUtQZJOUwtIRRtu504F-glNe20Fe11Q2mW-_TfoLhv4vvcFMwlHiJgRaDuIANnDsADnjmpgUOFU'
+#
+#     # data message sending
+#     message_data = messaging.Message(
+#         data={
+#             'drawing_patient_x': drawing_patient_x,
+#             'drawing_patient_y': drawing_patient_y
+#         },
+#         token=registration_token,
+#     )
+#     response = messaging.send(message_data)
+#     print('Successfully sent data message:', response)
 
 
 
