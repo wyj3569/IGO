@@ -69,10 +69,12 @@ def polypoint(real_distance: tuple,
 
 
 # FCM 서버에 push message 요청을 보내는 함수
-def send_from_patient_to_doctor_by_fcm_notification(drawing_patient_x,
-                                       drawing_patient_y,
-                                       patient_info: Patient,
-                                       doctor_info: Profile):
+def send_from_patient_to_doctor_by_fcm_notification(
+            drawing_patient_x,
+            drawing_patient_y,
+            patient_info: Patient,
+            doctor_info: Profile
+    ):
 
     registration_token = 'd4e1AepQQBOZ6Vt17XLYBI:APA91bEv8cKSjS-2uBBqPco17SK1jg5R_3RnAAmCukEDljBWpiXK231kwwk3_9upUKUtQZJOUwtIRRtu504F-glNe20Fe11Q2mW-_TfoLhv4vvcFMwlHiJgRaDuIANnDsADnjmpgUOFU'
 
@@ -81,9 +83,13 @@ def send_from_patient_to_doctor_by_fcm_notification(drawing_patient_x,
         notification=messaging.Notification(
             title='환자의 호출',
             body=f'{doctor_info.name} 선생님, {patient_info.name} 환자가 호출했습니다!!',
-            image=f'drawing_patient_x:{drawing_patient_x}, drawing_patient_y:{drawing_patient_y}'
+            image=f'{patient_info.id} {patient_info.image} {drawing_patient_x} {drawing_patient_y}'
         ),
         token=registration_token,
+        data={
+            "x": drawing_patient_x,
+            "y": drawing_patient_y
+        }
     )
     response = messaging.send(message_noti)
     print('Successfully sent notification message:', response)
@@ -105,17 +111,6 @@ def send_from_patient_to_doctor_by_fcm_notification(drawing_patient_x,
 #     )
 #     response = messaging.send(message_data)
 #     print('Successfully sent data message:', response)
-
-
-
-
-
-
-
-
-
-
-
 
 
 # def send_to_firebase_cloud_messaging():
