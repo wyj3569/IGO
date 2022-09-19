@@ -80,11 +80,11 @@ def send_from_patient_to_doctor_by_fcm_notification(
 
     # notification message sending
     message_noti = messaging.Message(
-        notification=messaging.Notification(
-            title='환자의 호출',
-            body=f'{doctor_info.name} 선생님, {patient_info.name} 환자가 호출했습니다!!',
-            image=f'{patient_info.id} {patient_info.image} {drawing_patient_x} {drawing_patient_y}'
-        ),
+        # notification=messaging.Notification(
+        #     title='환자의 호출',
+        #     body=f'{doctor_info.name} 선생님, {patient_info.name} 환자가 호출했습니다!!',
+        #     image=f'{patient_info.id} {patient_info.image} {drawing_patient_x} {drawing_patient_y}'
+        # ),
         token=registration_token,
         data={
             "x": drawing_patient_x,
