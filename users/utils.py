@@ -77,13 +77,11 @@ def send_from_patient_to_doctor_by_fcm_notification(drawing_patient_x,
     # notification message sending
     message_noti = messaging.Message(
         notification=messaging.Notification(
-            title='환자의 호출',
-            body=f'{doctor_info.name} 선생님, {patient_info.name} 환자가 호출했습니다!!',
-            image=f'{patient_info.id} {patient_info.image} {drawing_patient_x} {drawing_patient_y}'
+            title='환자의 호출!',
+            body=f'{doctor_info.name} 선생님, {patient_info.name} 환자가 호출했습니다!',
         ),
         token=registration_token,
     )
-
     response = messaging.send(message_noti)
     print('Successfully sent notification message:', response)
 
@@ -97,12 +95,13 @@ def send_from_patient_to_doctor_by_fcm_data(drawing_patient_x,
     # data message sending
     message_data = messaging.Message(
         data={
+            "id": f"{patient_info.id}",
+            "image": f"{patient_info.image}",
             "x": f"{drawing_patient_x}",
             "y": f"{drawing_patient_y}"
         },
         token=registration_token,
     )
-
     response = messaging.send(message_data)
     print('Successfully sent data message:', response)
 
