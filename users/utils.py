@@ -80,6 +80,7 @@ def send_from_patient_to_doctor_by_fcm_notification(
 
     # notification message sending
     message_noti = messaging.Message(
+        # change
         # notification=messaging.Notification(
         #     title='환자의 호출',
         #     body=f'{doctor_info.name} 선생님, {patient_info.name} 환자가 호출했습니다!!',
