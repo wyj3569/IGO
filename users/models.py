@@ -24,9 +24,6 @@ class Hospital(models.Model):
     # 기지국 3
     drawing_station3_x = models.IntegerField(default=0)
     drawing_station3_y = models.IntegerField(default=0)
-    # 기지국 4
-    drawing_station4_x = models.IntegerField(default=0)
-    drawing_station4_y = models.IntegerField(default=0)
 
     # 병원 실제 크기
     real_x = models.IntegerField(default=0)
@@ -41,9 +38,6 @@ class Hospital(models.Model):
     # 기지국 3
     real_station3_x = models.IntegerField(default=0)
     real_station3_y = models.IntegerField(default=0)
-    # 기지국 4
-    real_station4_x = models.IntegerField(default=0)
-    real_station4_y = models.IntegerField(default=0)
 
     def __str__(self):
         return f'병원 이름 : {self.name}'
@@ -94,14 +88,19 @@ class Patient(models.Model):
     # 환자 사진 (1부터 5까지의 정수 중 하나)
     image = models.IntegerField(default=0)
 
+    # 환자 아두이노 wifi ip 주소
+    ip_address = models.CharField(max_length=50, default="")
+
     # 기지국 1과의 거리 값
     real_distance1 = models.FloatField(default=0.0)
     # 기지국 2와의 거리 값
     real_distance2 = models.FloatField(default=0.0)
     # 기지국 3과의 거리 값
     real_distance3 = models.FloatField(default=0.0)
-    # 기지국 4와의 거리 값
-    real_distance4 = models.FloatField(default=0.0)
+
+    # 환자의 위치 좌표 값
+    drawing_patient_x = models.FloatField(default=0.0)
+    drawing_patient_y = models.FloatField(default=0.0)
 
     def __str__(self):
         return f'환자 이름 : {self.name} / 담당 의료진 : {self.profile.name}'

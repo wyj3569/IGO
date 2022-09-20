@@ -7,6 +7,7 @@ from rest_framework.generics import get_object_or_404
 from rest_framework.views import APIView
 
 from .models import Hospital, Profile, Patient
+
 from .serializers import HospitalREADOneSerializer, HospitalREADAllSerializer
 from .serializers import RegisterSerializer, LoginSerializer
 from .serializers import ProfileREADSerializer, ProfileUPDATESerializer
@@ -14,6 +15,7 @@ from .serializers import PatientCREATESerializer, PatientREADSerializer, Patient
 
 from .utils import get_drawing_patient_position
 from .utils import send_from_patient_to_doctor_by_fcm_notification
+from .utils import send_from_doctor_to_patient_by_fcm_notification
 from .utils import send_from_patient_to_doctor_by_fcm_data
 
 
@@ -144,99 +146,27 @@ class PatientAPIView(APIView):
         return Response(request.data, status=status.HTTP_200_OK)
 
 
-# 기지국 1에서 환자와의 거리 정보 받기 (아두이노 -> 서버)
-# call/patient/<int:patient_id>/from1/
-class FromStation1APIView(APIView):
+# 환자 -> 서버 (wifi ip 주소 보내기)
+# send/ip_address/<int:patient_id>/
+class FromPatientToServerIPAddressAPIView(APIView):
     def post(self, request, patient_id):
+        ip_address = request.data["ip_address"]
+        print(f"ip_address: {ip_address}")
+
+        # 환자 조회
         patient = get_object_or_404(Patient, pk=patient_id)
-        print("환자 이름 : ", patient.name)
-        print("기지국 1번과의 거리 : ", request.data["real_distance1"])
-        patient.real_distance1 = float(request.data["real_distance1"])
+        print(f"환자 ID: {patient_id}")
+        print(f"환자 이름: {patient.name}")
+
+        patient.ip_address = ip_address
         patient.save()
         return Response(request.data, status=status.HTTP_200_OK)
 
 
-# 기지국 2에서 환자와의 거리 정보 받기 (아두이노 -> 서버)
-# call/patient/<int:patient_id>/from2/
-class FromStation2APIView(APIView):
+# 기지국 -> 서버 (거리 값)
+# call/station/<int:patient_id>/
+class FromStationToServerAPIView(APIView):
     def post(self, request, patient_id):
-        patient = get_object_or_404(Patient, pk=patient_id)
-        print("환자 이름 : ", patient.name)
-        print("기지국 2번과의 거리 : ", request.data['real_distance2'])
-        patient.real_distance2 = request.data['real_distance2']
-        patient.save()
-        return Response(request.data, status=status.HTTP_200_OK)
-
-
-# 기지국 3에서 환자와의 거리 정보 받기 (아두이노 -> 서버)
-# call/patient/<int:patient_id>/from3/
-class FromStation3APIView(APIView):
-    def post(self, request, patient_id):
-        patient = get_object_or_404(Patient, pk=patient_id)
-        print("환자 이름 : ", patient.name)
-        print("기지국 3번과의 거리 : ", request.data['real_distance3'])
-        patient.real_distance3 = request.data['real_distance3']
-        patient.save()
-        return Response(request.data, status=status.HTTP_200_OK)
-
-
-# 기지국 4에서 환자와의 거리 정보 받기 (아두이노 -> 서버)
-# call/patient/<int:patient_id>/from4/
-class FromStation4APIView(APIView):
-    def post(self, request, patient_id):
-        patient = get_object_or_404(Patient, pk=patient_id)
-        print("환자 이름 : ", patient.name)
-        print("기지국 4번과의 거리 : ", request.data['real_distance4'])
-        patient.real_distance4 = request.data['real_distance4']
-        patient.save()
-        return Response(request.data, status=status.HTTP_200_OK)
-
-
-# # 환자가 의료진 호출 (라즈베리파이 -> 서버)
-# # call/patient/<int:patient_id>/
-# class FromPatientToDoctorAPIView(APIView):
-#     def get(self, request, patient_id):
-#         # 환자 조회
-#         patient = get_object_or_404(Patient, pk=patient_id)
-#         print(f"환자 id: {patient_id}")
-#         print(f"환자 이름: {patient.name}")
-#         # 환자의 의료진 조회
-#         profile = patient.profile
-#         print(f"의료진 이름: {profile.name}")
-#         # 의료진의 병원 조회
-#         hospital = profile.hospital
-#         print(f"병원 이름: {hospital.name}")
-#
-#         # 환자와 기지국 사이의 실제 거리 값 4개
-#         real_distance1 = patient.real_distance1
-#         real_distance2 = patient.real_distance2
-#         real_distance3 = patient.real_distance3
-#         real_distance4 = patient.real_distance4
-#         print(f"거리1: {real_distance1}")
-#         print(f"거리2: {real_distance2}")
-#         print(f"거리3: {real_distance3}")
-#         print(f"거리4: {real_distance4}")
-#
-#         # 도면 상에서 환자의 위치
-#         drawing_patient_x, drawing_patient_y = get_drawing_patient_position(
-#             hospital=hospital,
-#             real_distance=(real_distance1, real_distance2, real_distance3, real_distance4)
-#         )
-#
-#         # FCM에 push 메시지 요청 보내기
-#         send_from_patient_to_doctor_by_fcm(
-#             drawing_patient_x=drawing_patient_x,
-#             drawing_patient_y=drawing_patient_y,
-#             patient_info=patient,
-#             doctor_info=profile
-#         )
-#         return Response(request.data, status=status.HTTP_200_OK)
-
-
-# 환자가 의료진 호출 (라즈베리파이 -> 서버)
-# call/patient/<int:patient_id>/
-class FromPatientToDoctorAPIView(APIView):
-    def post(self, request, patient_id):  # 일단 patient_id는 1로 고정
         station = request.data["station"]
         distance = float(request.data["real_distance"])
 
@@ -257,72 +187,111 @@ class FromPatientToDoctorAPIView(APIView):
             print(f"기지국 C가 값을 보냈습니다. {distance}")
             patient.real_distance3 = distance
             patient.save()
-        elif station == "D":
-            print(f"기지국 D가 값을 보냈습니다. {distance}")
-            patient.real_distance4 = distance
-            patient.save()
         else:
-            print("잘못된 값이 들어왔습니다.")
+            print("invalid station name")
             return Response("invalid station name", status=status.HTTP_400_BAD_REQUEST)
 
-        if patient.real_distance1 > 0 and patient.real_distance2 > 0 and patient.real_distance3 > 0 and patient.real_distance4 > 0:
+        if (patient.real_distance1 > 0) and (patient.real_distance2 > 0) and (patient.real_distance3 > 0):
             print("모든 기지국이 거리값을 보냈습니다.")
-
             # 환자의 의료진 조회
             profile = patient.profile
-            print(f"의료진 이름: {profile.name}")
             # 의료진의 병원 조회
             hospital = profile.hospital
-            print(f"병원 이름: {hospital.name}")
 
-            # 도면 상에서 환자의 위치
+            # 도면 상에서 환자의 위치 구하고 저장
             drawing_patient_x, drawing_patient_y = get_drawing_patient_position(
                 hospital=hospital,
                 real_distance=(patient.real_distance1,
                                patient.real_distance2,
                                patient.real_distance3,
-                               patient.real_distance4
                                )
             )
-            print("FCM에 보낼 값")
             print(f"drawing_patient_x: {drawing_patient_x}")
             print(f"drawing_patient_y: {drawing_patient_y}")
-
-            # FCM에 push 메시지 요청 보내기
-            # notification 알림 보내기
-            send_from_patient_to_doctor_by_fcm_notification(
-                drawing_patient_x=drawing_patient_x,
-                drawing_patient_y=drawing_patient_y,
-                patient_info=patient,
-                doctor_info=profile
-            )
-            # data 알림 보내기
-            send_from_patient_to_doctor_by_fcm_data(
-                drawing_patient_x=drawing_patient_x,
-                drawing_patient_y=drawing_patient_y,
-                patient_info=patient,
-                doctor_info=profile
-            )
+            patient.drawing_patient_x = drawing_patient_x
+            patient.drawing_patient_y = drawing_patient_y
 
             # 환자의 실제 거리값 0으로 초기화
             patient.real_distance1 = 0
             patient.real_distance2 = 0
             patient.real_distance3 = 0
-            patient.real_distance4 = 0
+
             patient.save()
         else:
             print("아직 모든 기지국이 값을 보내지 않았습니다.")
-            return Response(request.data, status=status.HTTP_200_OK)
+            return Response(request.data, status=status.HTTP_201_CREATED)
 
         return Response(request.data, status=status.HTTP_200_OK)
 
 
-# 의료진이 환자 호출
-# call/doctor/<int:doctor_id>/patient/<int:patient_id>/
+# 환자 -> 서버 (의료진 호출)
+# call/patient/<int:patient_id>/
+class FromPatientToDoctorAPIView(APIView):
+    def get(self, request, patient_id):  # 일단 patient_id는 1로 고정
+        # 환자 조회
+        patient = get_object_or_404(Patient, pk=patient_id)
+        print(f"환자 ID: {patient_id}")
+        print(f"환자 이름: {patient.name}")
+        # 환자의 의료진 조회
+        profile = patient.profile
+        print(f"의료진 이름: {profile.name}")
+        # 의료진의 병원 조회
+        hospital = profile.hospital
+        print(f"병원 이름: {hospital.name}")
+
+        # 병원 도면에서 환자의 위치 (FCM)
+        drawing_patient_x = patient.drawing_patient_x
+        drawing_patient_y = patient.drawing_patient_y
+        print("FCM에 보낼 값")
+        print(f"drawing_patient_x: {drawing_patient_x}")
+        print(f"drawing_patient_y: {drawing_patient_y}")
+
+        # FCM에 push 메시지 요청 보내기
+        # notification 알림 보내기
+        send_from_patient_to_doctor_by_fcm_notification(
+            patient_info=patient,
+            doctor_info=profile
+        )
+        # data 알림 보내기
+        send_from_patient_to_doctor_by_fcm_data(
+            drawing_patient_x=drawing_patient_x,
+            drawing_patient_y=drawing_patient_y,
+            patient_info=patient,
+        )
+        return Response(request.data, status=status.HTTP_200_OK)
+
+
+# 의료진 -> 서버 (환자 호출)
+# call/doctor/patient/<int:patient_id>/
 class FromDoctorToPatientAPIView(APIView):
     # 의료진이 자신의 id값과 환자의 id값을 보냄
-    def post(self, request, doctor_id, patient_id):
-        print(f"의료진 id: {doctor_id}")
-        print(f"환자 id: {patient_id}")
-        print(f"메시지: {request.data['message']}")
+    def get(self, request, patient_id):
+        # 환자 조회
+        patient = get_object_or_404(Patient, pk=patient_id)
+        print(f"환자 ID: {patient_id}")
+        print(f"환자 이름: {patient.name}")
+        # 환자의 의료진 조회
+        profile = patient.profile
+        print(f"의료진 이름: {profile.name}")
+        # 의료진의 병원 조회
+        hospital = profile.hospital
+        print(f"병원 이름: {hospital.name}")
+
+        # 병원 도면에서 환자의 위치 (FCM)
+        drawing_patient_x = patient.drawing_patient_x
+        drawing_patient_y = patient.drawing_patient_y
+        print("FCM에 보낼 값")
+        print(f"drawing_patient_x: {drawing_patient_x}")
+        print(f"drawing_patient_y: {drawing_patient_y}")
+
+        # FCM에 push 메시지 요청 보내기
+        # notification 알림 보내기
+        send_from_doctor_to_patient_by_fcm_notification()
+        # data 알림 보내기
+        send_from_patient_to_doctor_by_fcm_data(
+            drawing_patient_x=drawing_patient_x,
+            drawing_patient_y=drawing_patient_y,
+            patient_info=patient,
+        )
+
         return Response(request.data, status=status.HTTP_200_OK)
