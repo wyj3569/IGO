@@ -78,7 +78,7 @@ def send_from_patient_to_doctor_by_fcm_notification(patient_info: Patient, docto
         token=registration_token,
     )
     response = messaging.send(message_noti)
-    print('Successfully sent notification message:', response)
+    print('Successfully sent notification message(환자->의료진):', response)
 
 
 # FCM 서버에 notification message 요청을 보내는 함수
@@ -95,7 +95,7 @@ def send_from_doctor_to_patient_by_fcm_notification():
         token=registration_token,
     )
     response = messaging.send(message_noti)
-    print('Successfully sent notification message:', response)
+    print('Successfully sent notification message(의료진->환자):', response)
 
 # FCM 서버에 data message 요청을 보내는 함수
 def send_from_patient_to_doctor_by_fcm_data(drawing_patient_x, drawing_patient_y, patient_info: Patient):
