@@ -61,22 +61,16 @@ def polypoint(real_distance: tuple,
     print(f"real_station2 : {real_station2}")
     print(f"real_station3 : {real_station3}")
 
-    # A = float(2 * (real_station2_x - real_station1_x))
-    # B = float(2 * (real_station2_y - real_station1_y))
-    # C = float(real_distance1**2 - real_distance2**2 - real_station1_x**2 + real_station2_x**2 - real_station1_y**2 + real_station2_y**2)
-    #
-    # D = float(2 * (real_station3_x - real_station2_x))
-    # E = float(2 * (real_station3_y - real_station2_y))
-    # F = float(real_distance2**2 - real_distance3**2 - real_station2_x**2 + real_station3_x**2 - real_station2_y**2 + real_station3_y**2)
-    #
-    # real_patient_x = ((F * B) - (E * C)) / ((B * D) - (E * A))
-    # real_patient_y = ((F * A) - (D * C)) / ((A * E) - (D * B))
+    A = float(2 * (x2 - x1))
+    B = float(2 * (y2 - y1))
+    C = float(r1**2 - r2**2 - x1**2 + x2**2 - y1**2 + y2**2)
 
-    S = (pow(x3, 2.0) - pow(x2, 2.0) + pow(y3, 2.0) - pow(y2, 2.0) + pow(r2, 2.0) - pow(r3, 2.0)) / 2.0
-    T = (pow(x1, 2.0) - pow(x2, 2.0) + pow(y1, 2.0) - pow(y2, 2.0) + pow(r2, 2.0) - pow(r1, 2.0)) / 2.0
+    D = float(2 * (x3 - x2))
+    E = float(2 * (y3 - y2))
+    F = float(r2**2 - r3**2 - x2**2 + x3**2 - y2**2 + y3**2)
 
-    y = ((T * (x2 - x3)) - (S * (x2 - x1))) / (((y1 - y2) * (x2 - x3)) - ((y3 - y2) * (x2 - x1)))
-    x = ((y * (y1 - y2)) - T) / (x2 - x1)
+    x = ((F * B) - (E * C)) / ((B * D) - (E * A))
+    y = ((F * A) - (D * C)) / ((A * E) - (D * B))
 
     print(f"real_patient_x : {x}")
     print(f"real_patient_y : {y}")
