@@ -67,7 +67,7 @@ def polypoint(real_distance: tuple,
 # FCM 서버에 notification message 요청을 보내는 함수
 # 환자 -> 의료진 호출 시
 def send_from_patient_to_doctor_by_fcm_notification(patient_info: Patient, doctor_info: Profile):
-    registration_token = 'd4e1AepQQBOZ6Vt17XLYBI:APA91bEv8cKSjS-2uBBqPco17SK1jg5R_3RnAAmCukEDljBWpiXK231kwwk3_9upUKUtQZJOUwtIRRtu504F-glNe20Fe11Q2mW-_TfoLhv4vvcFMwlHiJgRaDuIANnDsADnjmpgUOFU'
+    registration_token = 'eanPkrB4TsWzav4pMI-RsB:APA91bGTXRAEMuMrxP9-Q8K5nHiXAwDm-QlPokHxVBH5Pvv4vtkIsy6ky9IkklLvEQvhtzVlZPDTv1-iH1smChrVZ0PDZZZe3J1LYLniUbu6H0p_74WCLn4UzFsjwxi0Aa1jHx4I-D2e'
 
     # notification message sending
     message_noti = messaging.Message(
