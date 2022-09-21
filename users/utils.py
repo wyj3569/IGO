@@ -81,35 +81,91 @@ def polypoint(real_x, real_y, real_distance: tuple, real_station1: tuple, real_s
     return x, y
 
 
-def send_from_patient_to_doctor_by_fcm_notification(patient: Patient, doctor: Profile):
-    """
-    FCM 서버에 notification message 요청을 보내는 함수
-    환자 -> 의료진 호출
-    :param patient: 환자
-    :param doctor: 의료진
-    :return: none
-    """
+# def send_from_patient_to_doctor_by_fcm_notification(patient: Patient, doctor: Profile):
+#     """
+#     FCM 서버에 notification message 요청을 보내는 함수
+#     환자 -> 의료진 호출
+#     :param patient: 환자
+#     :param doctor: 의료진
+#     :return: none
+#     """
+#     registration_token = 'cpjgl2wFSjy3xeiH26LpVd:APA91bEK7gaVfCn8IzX0iCbvpi_1ronLK2IpZ81g7puLGm9Wi4EQRfH0oWU54PHNHkNXK4d1SsdaZXS4I7Iofn-jf6mHcvLJXWWHlUIHiReysb2IcOpZrLI4l0I2pQhwIunrD790zCXC'
+#
+#     message = messaging.Message(
+#         notification=messaging.Notification(
+#             title='환자의 호출',
+#             body=f'{patient.name} 선생님, {doctor.name} 환자가 호출했습니다',
+#         ),
+#         token=registration_token,
+#     )
+#     response = messaging.send(message)
+#     print('Successfully sent notification message (환자->의료진) : ', response)
+#
+#
+# def send_from_doctor_to_patient_by_fcm_notification():
+#     """
+#     FCM 서버에 notification message 요청을 보내는 함수
+#     의료진 -> 환자 호출 시
+#     :return: none
+#     """
+#     registration_token = 'cpjgl2wFSjy3xeiH26LpVd:APA91bEK7gaVfCn8IzX0iCbvpi_1ronLK2IpZ81g7puLGm9Wi4EQRfH0oWU54PHNHkNXK4d1SsdaZXS4I7Iofn-jf6mHcvLJXWWHlUIHiReysb2IcOpZrLI4l0I2pQhwIunrD790zCXC'
+#
+#     message_noti = messaging.Message(
+#         notification=messaging.Notification(
+#             title='호출한 환자의 위치 정보',
+#             body='호출한 환자의 위치 정보를 보려면 클릭하세요',
+#         ),
+#         token=registration_token,
+#     )
+#     response = messaging.send(message_noti)
+#     print('Successfully sent notification message (의료진->환자) : ', response)
+#
+#
+# def send_from_patient_to_doctor_by_fcm_data(patient: Patient, drawing_patient_x, drawing_patient_y):
+#     """
+#     FCM 서버에 data message 요청을 보내는 함수
+#     :param drawing_patient_x: 도면 상에서 환자의 x좌표
+#     :param drawing_patient_y: 도면 상에서 환자의 y좌표
+#     :param patient: 환자
+#     :return: none
+#     """
+#     registration_token = 'cpjgl2wFSjy3xeiH26LpVd:APA91bEK7gaVfCn8IzX0iCbvpi_1ronLK2IpZ81g7puLGm9Wi4EQRfH0oWU54PHNHkNXK4d1SsdaZXS4I7Iofn-jf6mHcvLJXWWHlUIHiReysb2IcOpZrLI4l0I2pQhwIunrD790zCXC'
+#
+#     message_data = messaging.Message(
+#         data={
+#             "id": f"{patient.id}",
+#             "image": f"{patient.image}",
+#             "x": f"{drawing_patient_x}",
+#             "y": f"{drawing_patient_y}"
+#         },
+#         token=registration_token,
+#     )
+#     response = messaging.send(message_data)
+#     print('Successfully sent data message : ', response)
+
+# FCM 서버에 notification message 요청을 보내는 함수
+# 환자 -> 의료진 호출 시
+def send_from_patient_to_doctor_by_fcm_notification(patient_info: Patient, doctor_info: Profile):
     registration_token = 'cpjgl2wFSjy3xeiH26LpVd:APA91bEK7gaVfCn8IzX0iCbvpi_1ronLK2IpZ81g7puLGm9Wi4EQRfH0oWU54PHNHkNXK4d1SsdaZXS4I7Iofn-jf6mHcvLJXWWHlUIHiReysb2IcOpZrLI4l0I2pQhwIunrD790zCXC'
 
-    message = messaging.Message(
+    # notification message sending
+    message_noti = messaging.Message(
         notification=messaging.Notification(
             title='환자의 호출',
-            body=f'{patient.name} 선생님, {doctor.name} 환자가 호출했습니다',
+            body=f'{doctor_info.name} 선생님, {patient_info.name} 환자가 호출했습니다',
         ),
         token=registration_token,
     )
-    response = messaging.send(message)
-    print('Successfully sent notification message (환자->의료진) : ', response)
+    response = messaging.send(message_noti)
+    print('Successfully sent notification message(환자->의료진):', response)
 
 
+# FCM 서버에 notification message 요청을 보내는 함수
+# 의료진 -> 환자 호출 시
 def send_from_doctor_to_patient_by_fcm_notification():
-    """
-    FCM 서버에 notification message 요청을 보내는 함수
-    의료진 -> 환자 호출 시
-    :return: none
-    """
     registration_token = 'cpjgl2wFSjy3xeiH26LpVd:APA91bEK7gaVfCn8IzX0iCbvpi_1ronLK2IpZ81g7puLGm9Wi4EQRfH0oWU54PHNHkNXK4d1SsdaZXS4I7Iofn-jf6mHcvLJXWWHlUIHiReysb2IcOpZrLI4l0I2pQhwIunrD790zCXC'
 
+    # notification message sending
     message_noti = messaging.Message(
         notification=messaging.Notification(
             title='호출한 환자의 위치 정보',
@@ -121,20 +177,15 @@ def send_from_doctor_to_patient_by_fcm_notification():
     print('Successfully sent notification message(의료진->환자):', response)
 
 
-def send_from_patient_to_doctor_by_fcm_data(patient: Patient, drawing_patient_x, drawing_patient_y):
-    """
-    FCM 서버에 data message 요청을 보내는 함수
-    :param drawing_patient_x: 도면 상에서 환자의 x좌표
-    :param drawing_patient_y: 도면 상에서 환자의 y좌표
-    :param patient: 환자
-    :return: none
-    """
+# FCM 서버에 data message 요청을 보내는 함수
+def send_from_patient_to_doctor_by_fcm_data(drawing_patient_x, drawing_patient_y, patient_info: Patient):
     registration_token = 'cpjgl2wFSjy3xeiH26LpVd:APA91bEK7gaVfCn8IzX0iCbvpi_1ronLK2IpZ81g7puLGm9Wi4EQRfH0oWU54PHNHkNXK4d1SsdaZXS4I7Iofn-jf6mHcvLJXWWHlUIHiReysb2IcOpZrLI4l0I2pQhwIunrD790zCXC'
 
+    # data message sending
     message_data = messaging.Message(
         data={
-            "id": f"{patient.id}",
-            "image": f"{patient.image}",
+            "id": f"{patient_info.id}",
+            "image": f"{patient_info.image}",
             "x": f"{drawing_patient_x}",
             "y": f"{drawing_patient_y}"
         },
