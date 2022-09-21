@@ -69,8 +69,8 @@ def polypoint(real_distance: tuple,
     E = float(2 * (y3 - y2))
     F = float(r2**2 - r3**2 - x2**2 + x3**2 - y2**2 + y3**2)
 
-    x = ((F * B) - (E * C)) / ((B * D) - (E * A))
-    y = ((F * A) - (D * C)) / ((A * E) - (D * B))
+    x = (F * B - E * C) / (B * D - E * A)
+    y = (F * A - D * C) / (A * E - D * B)
 
     print(f"real_patient_x : {x}")
     print(f"real_patient_y : {y}")
