@@ -88,9 +88,9 @@ class HospitalREADOneSerializer(serializers.ModelSerializer):
             'real_station1_x',
             'real_station1_y',
             'real_station2_x',
-            'real_station2_x',
+            'real_station2_y',
             'real_station3_x',
-            'real_station3_x',
+            'real_station3_y',
         )
 
 
