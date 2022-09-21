@@ -84,7 +84,7 @@ def send_from_patient_to_doctor_by_fcm_notification(patient_info: Patient, docto
 # FCM 서버에 notification message 요청을 보내는 함수
 # 의료진 -> 환자 호출 시
 def send_from_doctor_to_patient_by_fcm_notification():
-    registration_token = 'd4e1AepQQBOZ6Vt17XLYBI:APA91bEv8cKSjS-2uBBqPco17SK1jg5R_3RnAAmCukEDljBWpiXK231kwwk3_9upUKUtQZJOUwtIRRtu504F-glNe20Fe11Q2mW-_TfoLhv4vvcFMwlHiJgRaDuIANnDsADnjmpgUOFU'
+    registration_token = 'eanPkrB4TsWzav4pMI-RsB:APA91bGTXRAEMuMrxP9-Q8K5nHiXAwDm-QlPokHxVBH5Pvv4vtkIsy6ky9IkklLvEQvhtzVlZPDTv1-iH1smChrVZ0PDZZZe3J1LYLniUbu6H0p_74WCLn4UzFsjwxi0Aa1jHx4I-D2e'
 
     # notification message sending
     message_noti = messaging.Message(
@@ -97,9 +97,10 @@ def send_from_doctor_to_patient_by_fcm_notification():
     response = messaging.send(message_noti)
     print('Successfully sent notification message(의료진->환자):', response)
 
+
 # FCM 서버에 data message 요청을 보내는 함수
 def send_from_patient_to_doctor_by_fcm_data(drawing_patient_x, drawing_patient_y, patient_info: Patient):
-    registration_token = 'd4e1AepQQBOZ6Vt17XLYBI:APA91bEv8cKSjS-2uBBqPco17SK1jg5R_3RnAAmCukEDljBWpiXK231kwwk3_9upUKUtQZJOUwtIRRtu504F-glNe20Fe11Q2mW-_TfoLhv4vvcFMwlHiJgRaDuIANnDsADnjmpgUOFU'
+    registration_token = 'eanPkrB4TsWzav4pMI-RsB:APA91bGTXRAEMuMrxP9-Q8K5nHiXAwDm-QlPokHxVBH5Pvv4vtkIsy6ky9IkklLvEQvhtzVlZPDTv1-iH1smChrVZ0PDZZZe3J1LYLniUbu6H0p_74WCLn4UzFsjwxi0Aa1jHx4I-D2e'
 
     # data message sending
     message_data = messaging.Message(
