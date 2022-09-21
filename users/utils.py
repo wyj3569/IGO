@@ -67,7 +67,7 @@ def polypoint(real_distance: tuple,
 # FCM 서버에 notification message 요청을 보내는 함수
 # 환자 -> 의료진 호출 시
 def send_from_patient_to_doctor_by_fcm_notification(patient_info: Patient, doctor_info: Profile):
-    registration_token = 'eanPkrB4TsWzav4pMI-RsB:APA91bGTXRAEMuMrxP9-Q8K5nHiXAwDm-QlPokHxVBH5Pvv4vtkIsy6ky9IkklLvEQvhtzVlZPDTv1-iH1smChrVZ0PDZZZe3J1LYLniUbu6H0p_74WCLn4UzFsjwxi0Aa1jHx4I-D2e'
+    registration_token = 'cpjgl2wFSjy3xeiH26LpVd:APA91bEK7gaVfCn8IzX0iCbvpi_1ronLK2IpZ81g7puLGm9Wi4EQRfH0oWU54PHNHkNXK4d1SsdaZXS4I7Iofn-jf6mHcvLJXWWHlUIHiReysb2IcOpZrLI4l0I2pQhwIunrD790zCXC'
 
     # notification message sending
     message_noti = messaging.Message(
@@ -84,7 +84,7 @@ def send_from_patient_to_doctor_by_fcm_notification(patient_info: Patient, docto
 # FCM 서버에 notification message 요청을 보내는 함수
 # 의료진 -> 환자 호출 시
 def send_from_doctor_to_patient_by_fcm_notification():
-    registration_token = 'eanPkrB4TsWzav4pMI-RsB:APA91bGTXRAEMuMrxP9-Q8K5nHiXAwDm-QlPokHxVBH5Pvv4vtkIsy6ky9IkklLvEQvhtzVlZPDTv1-iH1smChrVZ0PDZZZe3J1LYLniUbu6H0p_74WCLn4UzFsjwxi0Aa1jHx4I-D2e'
+    registration_token = 'cpjgl2wFSjy3xeiH26LpVd:APA91bEK7gaVfCn8IzX0iCbvpi_1ronLK2IpZ81g7puLGm9Wi4EQRfH0oWU54PHNHkNXK4d1SsdaZXS4I7Iofn-jf6mHcvLJXWWHlUIHiReysb2IcOpZrLI4l0I2pQhwIunrD790zCXC'
 
     # notification message sending
     message_noti = messaging.Message(
@@ -100,7 +100,7 @@ def send_from_doctor_to_patient_by_fcm_notification():
 
 # FCM 서버에 data message 요청을 보내는 함수
 def send_from_patient_to_doctor_by_fcm_data(drawing_patient_x, drawing_patient_y, patient_info: Patient):
-    registration_token = 'eanPkrB4TsWzav4pMI-RsB:APA91bGTXRAEMuMrxP9-Q8K5nHiXAwDm-QlPokHxVBH5Pvv4vtkIsy6ky9IkklLvEQvhtzVlZPDTv1-iH1smChrVZ0PDZZZe3J1LYLniUbu6H0p_74WCLn4UzFsjwxi0Aa1jHx4I-D2e'
+    registration_token = 'cpjgl2wFSjy3xeiH26LpVd:APA91bEK7gaVfCn8IzX0iCbvpi_1ronLK2IpZ81g7puLGm9Wi4EQRfH0oWU54PHNHkNXK4d1SsdaZXS4I7Iofn-jf6mHcvLJXWWHlUIHiReysb2IcOpZrLI4l0I2pQhwIunrD790zCXC'
 
     # data message sending
     message_data = messaging.Message(
