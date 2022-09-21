@@ -298,7 +298,7 @@ class FromDoctorToPatientAPIView(APIView):
         )
 
         ip = patient.ip_address
-        url = f"http://{ip}/gpio/1"
+        url = f"http://{ip}/gpio1/1"
         webbrowser.open(url)
 
         return Response(request.data, status=status.HTTP_200_OK)
