@@ -44,7 +44,7 @@ def polypoint(real_distance: tuple,
               real_station1: tuple,
               real_station2: tuple,
               real_station3: tuple,) -> tuple:
-    # 환자와 기지국 사이의 실제 거리들
+    # 환자와 기지국 사이의 실제 거리들.
     r1, r2, r3 = real_distance
     print("polypoint 내부")
     print("-----------------------------------")
