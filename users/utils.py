@@ -46,14 +46,20 @@ def polypoint(real_distance: tuple,
     # 환자와 기지국 사이의 실제 거리들 r1, r2, r3
     real_distance1, real_distance2, real_distance3 = real_distance
     print("polypoint 내부")
+
+    print("-----------------------------------")
     print(f"real_distance1 : {real_distance1}")
     print(f"real_distance2 : {real_distance2}")
     print(f"real_distance3 : {real_distance3}")
-    
+
     # 실제 병원에서 기지국 위치
     real_station1_x, real_station1_y = real_station1  # (x1, y1)
     real_station2_x, real_station2_y = real_station2  # (x2, y2)
     real_station3_x, real_station3_y = real_station3  # (x3, y3)
+
+    print(f"real_station1 : {real_station1}")
+    print(f"real_station2 : {real_station2}")
+    print(f"real_station3 : {real_station3}")
 
     A = float(2 * (real_station2_x - real_station1_x))
     B = float(2 * (real_station2_y - real_station1_y))
@@ -65,6 +71,10 @@ def polypoint(real_distance: tuple,
 
     real_patient_x = (F*B - E*C) / (B*D - E*A)
     real_patient_y = (F*A - D*C) / (A*E - D*B)
+
+    print(f"real_patient_x : {real_patient_x}")
+    print(f"real_patient_y : {real_patient_y}")
+    print("-----------------------------------")
 
     return real_patient_x, real_patient_y
 
