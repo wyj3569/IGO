@@ -1,4 +1,6 @@
 # users/views.py
+import webbrowser
+
 from django.contrib.auth.models import User
 
 from rest_framework import generics, status
@@ -18,6 +20,7 @@ from .utils import send_from_patient_to_doctor_by_fcm_notification
 from .utils import send_from_doctor_to_patient_by_fcm_notification
 from .utils import send_from_patient_to_doctor_by_fcm_data
 
+import webbrowser
 
 # 병원 전체 조회
 # hospital/
@@ -293,5 +296,9 @@ class FromDoctorToPatientAPIView(APIView):
             drawing_patient_y=drawing_patient_y,
             patient_info=patient,
         )
+
+        ip = patient.ip_address
+        url = f"http://{ip}/gpio/1"
+        webbrowser.open(url)
 
         return Response(request.data, status=status.HTTP_200_OK)
