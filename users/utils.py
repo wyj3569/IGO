@@ -1,6 +1,7 @@
 # users/utils.py
 from firebase_admin import messaging
 from .models import Patient, Profile, Hospital
+from math import pow
 
 
 # hospital : 병원 정보
@@ -43,40 +44,45 @@ def polypoint(real_distance: tuple,
               real_station1: tuple,
               real_station2: tuple,
               real_station3: tuple,) -> tuple:
-    # 환자와 기지국 사이의 실제 거리들 r1, r2, r3
-    real_distance1, real_distance2, real_distance3 = real_distance
+    # 환자와 기지국 사이의 실제 거리들
+    r1, r2, r3 = real_distance
     print("polypoint 내부")
-
     print("-----------------------------------")
-    print(f"real_distance1 : {real_distance1}")
-    print(f"real_distance2 : {real_distance2}")
-    print(f"real_distance3 : {real_distance3}")
+    print(f"real_distance1 : {r1}")
+    print(f"real_distance2 : {r2}")
+    print(f"real_distance3 : {r3}")
 
     # 실제 병원에서 기지국 위치
-    real_station1_x, real_station1_y = real_station1  # (x1, y1)
-    real_station2_x, real_station2_y = real_station2  # (x2, y2)
-    real_station3_x, real_station3_y = real_station3  # (x3, y3)
+    x1, y1 = real_station1
+    x2, y2 = real_station2
+    x3, y3 = real_station3
 
     print(f"real_station1 : {real_station1}")
     print(f"real_station2 : {real_station2}")
     print(f"real_station3 : {real_station3}")
 
-    A = float(2 * (real_station2_x - real_station1_x))
-    B = float(2 * (real_station2_y - real_station1_y))
-    C = float(real_distance1**2 - real_distance2**2 - real_station1_x**2 + real_station2_x**2 - real_station1_y**2 + real_station2_y**2)
+    # A = float(2 * (real_station2_x - real_station1_x))
+    # B = float(2 * (real_station2_y - real_station1_y))
+    # C = float(real_distance1**2 - real_distance2**2 - real_station1_x**2 + real_station2_x**2 - real_station1_y**2 + real_station2_y**2)
+    #
+    # D = float(2 * (real_station3_x - real_station2_x))
+    # E = float(2 * (real_station3_y - real_station2_y))
+    # F = float(real_distance2**2 - real_distance3**2 - real_station2_x**2 + real_station3_x**2 - real_station2_y**2 + real_station3_y**2)
+    #
+    # real_patient_x = ((F * B) - (E * C)) / ((B * D) - (E * A))
+    # real_patient_y = ((F * A) - (D * C)) / ((A * E) - (D * B))
 
-    D = float(2 * (real_station3_x - real_station2_x))
-    E = float(2 * (real_station3_y - real_station2_y))
-    F = float(real_distance2**2 - real_distance3**2 - real_station2_x**2 + real_station3_x**2 - real_station2_y**2 + real_station3_y**2)
+    S = (pow(x3, 2.0) - pow(x2, 2.0) + pow(y3, 2.0) - pow(y2, 2.0) + pow(r2, 2.0) - pow(r3, 2.0)) / 2.0
+    T = (pow(x1, 2.0) - pow(x2, 2.0) + pow(y1, 2.0) - pow(y2, 2.0) + pow(r2, 2.0) - pow(r1, 2.0)) / 2.0
 
-    real_patient_x = (F*B - E*C) / (B*D - E*A)
-    real_patient_y = (F*A - D*C) / (A*E - D*B)
+    y = ((T * (x2 - x3)) - (S * (x2 - x1))) / (((y1 - y2) * (x2 - x3)) - ((y3 - y2) * (x2 - x1)))
+    x = ((y * (y1 - y2)) - T) / (x2 - x1)
 
-    print(f"real_patient_x : {real_patient_x}")
-    print(f"real_patient_y : {real_patient_y}")
+    print(f"real_patient_x : {x}")
+    print(f"real_patient_y : {y}")
     print("-----------------------------------")
 
-    return real_patient_x, real_patient_y
+    return x, y
 
 
 # FCM 서버에 notification message 요청을 보내는 함수
