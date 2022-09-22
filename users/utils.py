@@ -69,15 +69,6 @@ def polypoint(real_x, real_y, real_distance: tuple, real_station1: tuple, real_s
         print(error)
         x, y = 0, 0
 
-    if x <= 0:
-        x = 0
-    if x >= real_x:
-        x = real_x
-    if y <= 0:
-        y = 0
-    if x >= real_y:
-        y = real_y
-
     return x, y
 
 
