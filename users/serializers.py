@@ -107,7 +107,7 @@ class ProfileREADSerializer(serializers.ModelSerializer):
 class ProfileUPDATESerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ('name', 'subjects', 'hospital')
+        fields = ('name', 'subjects', 'hospital', 'token')
 
 
 # 환자 1명 생성

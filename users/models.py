@@ -52,6 +52,8 @@ class Profile(models.Model):
     name = models.CharField(max_length=100, default="")
     # 의료진 전공
     subjects = models.CharField(max_length=100, default="")
+    # 토큰
+    token = models.TextField(default='')
 
     def __str__(self):
         return f'의료진 이름 : {self.name} / 전공 : {self.subjects} / 소속 병원 : {self.hospital.name}'

@@ -264,12 +264,13 @@ class FromPatientToDoctorAPIView(APIView):
         # FCM에 push 메시지 요청 보내기
         # notification push
         send_from_patient_to_doctor_by_fcm_notification(
-            patient_info=patient,
-            doctor_info=profile
+            patient=patient,
+            doctor=profile
         )
         # data push
         send_from_patient_to_doctor_by_fcm_data(
-            patient_info=patient,
+            patient=patient,
+            doctor=profile,
             drawing_patient_x=drawing_patient_x,
             drawing_patient_y=drawing_patient_y
         )
@@ -303,10 +304,11 @@ class FromDoctorToPatientAPIView(APIView):
 
         # FCM에 push 메시지 요청 보내기
         # notification push
-        send_from_doctor_to_patient_by_fcm_notification()
+        send_from_doctor_to_patient_by_fcm_notification(doctor=profile)
         # data push
         send_from_patient_to_doctor_by_fcm_data(
-            patient_info=patient,
+            patient=patient,
+            doctor=profile,
             drawing_patient_x=drawing_patient_x,
             drawing_patient_y=drawing_patient_y,
         )
