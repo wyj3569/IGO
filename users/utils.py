@@ -95,7 +95,7 @@ def send_from_patient_to_doctor_by_fcm_notification(patient: Patient, doctor: Pr
     message = messaging.Message(
         notification=messaging.Notification(
             title='환자의 호출',
-            body=f'{patient.name} 선생님, {doctor.name} 환자가 호출했습니다',
+            body=f'{doctor.name} 선생님, {patient.name} 환자가 호출했습니다',
         ),
         token=registration_token,
     )
