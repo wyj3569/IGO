@@ -146,8 +146,8 @@ def polypoint(real_x, real_y, real_distance: tuple, real_station1: tuple, real_s
 # FCM 서버에 notification message 요청을 보내는 함수
 # 환자 -> 의료진 호출 시
 def send_from_patient_to_doctor_by_fcm_notification(patient_info: Patient, doctor_info: Profile):
-    registration_token = 'cpjgl2wFSjy3xeiH26LpVd:APA91bEK7gaVfCn8IzX0iCbvpi_1ronLK2IpZ81g7puLGm9Wi4EQRfH0oWU54PHNHkNXK4d1SsdaZXS4I7Iofn-jf6mHcvLJXWWHlUIHiReysb2IcOpZrLI4l0I2pQhwIunrD790zCXC'
-
+    registration_token = 'cV24qz8vTGqozWqlSwSCMT:APA91bHTCVqeeTRlh_B0wP--2bRT2U6r2vLD7CJijB70-LLIM09Vibs_OYbjMBFG9XP_y4EjQyvHysMJK9hoeTP0-EcCIOLta9VTFxkFpCphv8EE_TQOrc3NskXvFfsGJu2CJbVVPj2G'
+    
     # notification message sending
     message_noti = messaging.Message(
         notification=messaging.Notification(
@@ -163,7 +163,7 @@ def send_from_patient_to_doctor_by_fcm_notification(patient_info: Patient, docto
 # FCM 서버에 notification message 요청을 보내는 함수
 # 의료진 -> 환자 호출 시
 def send_from_doctor_to_patient_by_fcm_notification():
-    registration_token = 'cpjgl2wFSjy3xeiH26LpVd:APA91bEK7gaVfCn8IzX0iCbvpi_1ronLK2IpZ81g7puLGm9Wi4EQRfH0oWU54PHNHkNXK4d1SsdaZXS4I7Iofn-jf6mHcvLJXWWHlUIHiReysb2IcOpZrLI4l0I2pQhwIunrD790zCXC'
+    registration_token = 'cV24qz8vTGqozWqlSwSCMT:APA91bHTCVqeeTRlh_B0wP--2bRT2U6r2vLD7CJijB70-LLIM09Vibs_OYbjMBFG9XP_y4EjQyvHysMJK9hoeTP0-EcCIOLta9VTFxkFpCphv8EE_TQOrc3NskXvFfsGJu2CJbVVPj2G'
 
     # notification message sending
     message_noti = messaging.Message(
@@ -179,7 +179,7 @@ def send_from_doctor_to_patient_by_fcm_notification():
 
 # FCM 서버에 data message 요청을 보내는 함수
 def send_from_patient_to_doctor_by_fcm_data(drawing_patient_x, drawing_patient_y, patient_info: Patient):
-    registration_token = 'cpjgl2wFSjy3xeiH26LpVd:APA91bEK7gaVfCn8IzX0iCbvpi_1ronLK2IpZ81g7puLGm9Wi4EQRfH0oWU54PHNHkNXK4d1SsdaZXS4I7Iofn-jf6mHcvLJXWWHlUIHiReysb2IcOpZrLI4l0I2pQhwIunrD790zCXC'
+    registration_token = 'cV24qz8vTGqozWqlSwSCMT:APA91bHTCVqeeTRlh_B0wP--2bRT2U6r2vLD7CJijB70-LLIM09Vibs_OYbjMBFG9XP_y4EjQyvHysMJK9hoeTP0-EcCIOLta9VTFxkFpCphv8EE_TQOrc3NskXvFfsGJu2CJbVVPj2G'
 
     # data message sending
     message_data = messaging.Message(
