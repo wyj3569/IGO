@@ -90,6 +90,7 @@ def send_from_patient_to_doctor_by_fcm_notification(patient: Patient, doctor: Pr
     :return: none
     """
     registration_token = f'{doctor.token}'
+    print(f"registration_token : {registration_token}")
 
     message = messaging.Message(
         notification=messaging.Notification(
@@ -109,6 +110,7 @@ def send_from_doctor_to_patient_by_fcm_notification(doctor: Profile):
     :return: none
     """
     registration_token = f'{doctor.token}'
+    print(f"registration_token : {registration_token}")
 
     message_noti = messaging.Message(
         notification=messaging.Notification(
@@ -130,6 +132,7 @@ def send_from_patient_to_doctor_by_fcm_data(patient: Patient, doctor: Profile, d
     :return: none
     """
     registration_token = f'{doctor.token}'
+    print(f"registration_token : {registration_token}")
 
     message_data = messaging.Message(
         data={
