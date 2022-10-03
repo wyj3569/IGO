@@ -121,7 +121,7 @@ class PatientCREATESerializer(serializers.ModelSerializer):
 class PatientREADSerializer(serializers.ModelSerializer):
     class Meta:
         model = Patient
-        fields = ('id', 'name', 'gender', 'age', 'blood_type', 'blood_rh', 'disease', 'extra', 'image')
+        fields = ('id', 'name', 'gender', 'age', 'blood_type', 'blood_rh', 'disease', 'extra', 'image', 'ip_address')
 
 
 # 환자 1명 수정
