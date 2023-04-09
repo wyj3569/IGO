@@ -1,6 +1,6 @@
 # 아이고(IGO) - UWB를 활용한 위치기반 호출 시스템 - Server Page
 
-![image](https://user-images.githubusercontent.com/49744558/230747438-2a7289f7-abd9-462d-b58b-c35fb11fa0e9.png)
+<img src="https://user-images.githubusercontent.com/49744558/230747438-2a7289f7-abd9-462d-b58b-c35fb11fa0e9.png" width=60 height=60> 
 
 [⭐️IGO 팀 전체 Notion Page⭐️](https://www.notion.so/IGO-UWB-e0a47b1eebb7448db78db0fefc6d49e6?pvs=4)
 
